@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/nav_foot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <title>About</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <main>
+        <h1>About <span>MedNetz</span></h1>
+        <p>At MedNetz Hospital, we're more than just a healthcare provider; we're a beacon of hope and healing for the
+            people of Chandigarh and beyond. Founded with a vision of bridging the gap between advanced medical
+            technology and personalized care, we strive to offer our patients not just treatment, but a complete journey
+            towards wellness.</p>
+        <h2>Our Pillars of <span>Excellence</span></h2>
+        <ul>
+            <li><p><b>Compassionate Care</b>: At the heart of everything we do lies our unwavering commitment to patient
+                well-being. We believe in treating each individual with empathy, respect, and dignity, understanding
+                that healing extends beyond the physical.</p></li>
+            <li><p><b>Clinical Expertise</b>: Our team of highly qualified and experienced doctors, nurses, and specialists
+                represents the best in their respective fields. They leverage their expertise and the latest medical
+                advancements to deliver precise diagnoses, effective treatments, and optimal outcomes.</p></li>
+            <li><p><b>Cutting-Edge Technology</b>: We invest heavily in state-of-the-art medical technology to ensure our
+                patients have access to the most advanced diagnostic and treatment options available. From cutting-edge
+                surgical robots to sophisticated imaging technology, we stay at the forefront of medical innovation.</p>
+            </li>
+            <li><p><b>Holistic Approach</b>: We recognize that true health encompasses physical, mental, and emotional
+                well-being. Therefore, we offer a comprehensive range of services, from advanced medical specialties to
+                holistic wellness programs, to address the full spectrum of our patients' needs.</p></li>
+            <li><p><b>Community Focus</b>: We are deeply committed to serving the community beyond the walls of our
+                hospital. We actively participate in health awareness initiatives, organize free medical camps, and
+                collaborate with local organizations to improve healthcare access for all.</p></li>
+        </ul>
+    </main>
+    {% include 'footer.html' %}
+</body>
+
+</html>

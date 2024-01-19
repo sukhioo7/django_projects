@@ -1,0 +1,25 @@
+main{
+    margin: 2em 5em;
+    background-color: white;
+    padding: 2em;
+    border-radius: 40px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+body{
+    background-color: #edf2f4;
+}
+
+main h1,main h2{
+    text-align: center;
+    font-family: 'Segoe UI';
+    color: #202131;
+}
+span{
+    color:  rgba(84, 152, 90, 0.831);
+}
+main h2{
+    margin: 40px;
+}
+main h1{
+    margin: 20px;
+}

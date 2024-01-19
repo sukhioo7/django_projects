@@ -1,0 +1,80 @@
+body{
+    width: 100%;
+}
+.main{
+    padding: 2em 0 5em 0;
+    background-color: #F2FFE9;
+}
+.head-img{
+    width: 500px;
+    animation-name: float-image;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+body>div>div{
+    width: 500px;
+}
+body>div>div>h2,.main>h2,.form-registration h2{
+    font-size: 50px;
+    text-shadow: 3px 2px 0px rgba(0, 0, 0, 0.28);
+}
+.hospital-feature>div{
+    box-shadow: rgba(46, 221, 240, 0.4) -5px 5px, rgba(46, 240, 53, 0.3) -10px 10px, rgba(69, 240, 46, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+    
+    padding: 0.7em;
+    width: 340px;
+}
+.hospital-feature>div h5{
+    font-size: 25px;
+    text-align: center;
+}
+
+.hospital-feature>div h3{
+    font-size: 40px;
+    text-align: center;
+    text-shadow: 3px 2px 0px rgba(0, 0, 0, 0.28);
+}
+.hospital-feature>div>img{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    object-fit: cover;
+    width: 150px;
+}
+
+.form-registration{
+    padding: 2em 0 0 2em;
+    width: 100%;
+}
+.form-registration>div>div{
+    width: 40%;
+}
+.form-registration>div>form{
+    
+    border-radius: 30px 0 0 30px ;
+    margin: 20px 0 20px 20px;
+    padding: 30px;
+    background-color: rgba(118, 214, 127, 0.831);
+    backdrop-filter: blur(10px);
+}
+.form-registration form input,.form-registration form textarea{
+    background-color: rgba(255, 255, 255, 0.768);
+}
+.form-registration form button{
+    font-weight: bold;
+}
+
+.not-found>h1{
+  font-size: 130px;
+}
+
+
+  
+@keyframes float-image{
+    from {
+        transform: translateY(-10px);
+    }
+    to{
+        transform: translateY(0px);
+    }
+}
