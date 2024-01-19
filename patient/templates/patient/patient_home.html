@@ -29,7 +29,7 @@
       </div>
       <div class="patient-detail">
         <h2><span>{{patient.patient_name}}</span>
-          <div><a class="btn btn-outline-success" href="">Edit</a><button data-bs-toggle="modal"
+          <div><a class="btn btn-outline-success" href="{% url 'patient:update_patient' id=patient.patient_id %}">Edit</a><button data-bs-toggle="modal"
               data-bs-target="#exampleModal" onclick="delete_pa('{{patient.patient_id}}')"
               class="btn btn-outline-danger">Delete</button></div>
         </h2>

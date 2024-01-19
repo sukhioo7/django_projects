@@ -63,11 +63,25 @@ def delete_patient(request,id):
     patient.delete()
     return redirect('patient:patient_home_page')
 
-# def searching(request):
-#     if request.POST:
-#         user_search = request.POST['user_search']
-#         patients = models.Patient.objects.filter(Q(patient_name__icontains=user_search) | Q(patient_city__icontains=user_search) | Q(patient_phone__icontains=user_search) | Q(patient_email__icontains=user_search) | Q(patient_symptoms__icontains=user_search)).all()
-#         data = {
-#             'patients':patients
-#         }
-#         return render(request,'patient/patient_home.html',context=data)
+def update_patient(request,id):
+    patient = models.Patient.objects.get(patient_id=id)
+    if request.POST:
+        name = request.POST['full_name']
+        age = request.POST['age']
+        city = request.POST['city']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        symptoms = request.POST['symptoms']
+
+        patient.patient_name = name        
+        patient.patient_age = age        
+        patient.patient_city = city          
+        patient.patient_phone = phone        
+        patient.patient_email = email        
+        patient.patient_gender = gender        
+        patient.patient_symptoms = symptoms    
+        patient.save()
+
+    data = {'patient':patient}
+    return render(request,'patient/update.html',context=data)
