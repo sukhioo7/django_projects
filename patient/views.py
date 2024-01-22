@@ -85,3 +85,11 @@ def update_patient(request,id):
 
     data = {'patient':patient}
     return render(request,'patient/update.html',context=data)
+
+def filter_patient(request,filter_by):
+    if filter_by in ['male','female']:
+        patients = models.Patient.objects.filter(patient_gender=filter_by).all()
+        data = {
+            'patients':patients
+        }
+        return render(request,'patient/patient_home.html',context=data)
