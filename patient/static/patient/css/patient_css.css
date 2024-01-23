@@ -97,7 +97,7 @@ h1{
     top: 0;
     transition: 0.3s;
     background-color: #ffffff;
-    min-width: 200px;
+    min-width: 100px;
     z-index: 1;
     border-radius: 0 10px 10px 10px;
   }
@@ -133,4 +133,7 @@ h1{
   }
 .dropdown-btn:hover,.dropdown-content:hover,.nested-dropdown-content:hover{
   border: 2px solid rgba(118, 214, 127, 0.831);
+}
+.dropdown>a{
+  text-decoration: none;
 }

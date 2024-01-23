@@ -89,7 +89,20 @@ def update_patient(request,id):
 def filter_patient(request,filter_by):
     if filter_by in ['male','female']:
         patients = models.Patient.objects.filter(patient_gender=filter_by).all()
-        data = {
-            'patients':patients
-        }
-        return render(request,'patient/patient_home.html',context=data)
+    elif filter_by=='sort-by-age-asc':
+        patients = models.Patient.objects.all().order_by('patient_age')
+    elif filter_by=='sort-by-age-desc':
+        patients = models.Patient.objects.all().order_by('-patient_age')
+    elif filter_by=='sort-by-name-asc':
+        patients = models.Patient.objects.all().order_by('patient_name')
+    elif filter_by=='sort-by-name-desc':
+        patients = models.Patient.objects.all().order_by('-patient_name')
+    elif filter_by=='recent':
+        patients = models.Patient.objects.all().order_by('-patient_id')
+    elif filter_by=='oldest':
+        patients = models.Patient.objects.all().order_by('patient_id')
+
+    data = {
+        'patients':patients
+    }
+    return render(request,'patient/patient_home.html',context=data)

@@ -9,7 +9,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <link rel="stylesheet" href="{% static 'css/nav_foot.css' %}">
   <link rel="stylesheet" href="{% static 'patient/css/patient_css.css' %}">
   <title>Patient</title>
@@ -18,23 +18,43 @@
 <body>
   {% include 'navbar.html' %}
   <!-- <div class="container d-flex align-items-center " style="width : 80% ;"> -->
-  <div class="">
-    <div class="dropdown position-absolute " style="top: 75px ; left: 128px ;">
+  <div class="d-flex justify-content-around m-3">
+    <div class="dropdown mt-3 mb-3">
       <button class="dropdown-btn " onclick="toggleDropdown()">
         <ion-icon name="filter-outline"></ion-icon>Filter
       </button>
       <div class="dropdown-content" id="myDropdown">
-        <a href="#">Sort By Age</a>
-        <a href="#">Sort By Name</a>
         <div class="nested-dropdown">
-          <a href="#" class="d-flex justify-content-between"><span>Gender</span><ion-icon name="caret-forward-outline"></ion-icon></a>
+          <a class="d-flex justify-content-between"><span>Sort By Age</span><ion-icon
+              name="caret-forward-outline"></ion-icon></a>
+          <div class="nested-dropdown-content">
+            <a href="{% url 'patient:filter' filter_by='sort-by-age-asc' %}"
+              class="d-flex justify-content-between"><span>Ascending</span><ion-icon name="arrow-up-outline"></ion-icon></a>
+            <a href="{% url 'patient:filter' filter_by='sort-by-age-desc' %}"
+              class="d-flex justify-content-between"><span>Descending</span><ion-icon name="arrow-down-outline"></ion-icon></a>
+          </div>
+        </div>
+        <div class="nested-dropdown">
+          <a class="d-flex justify-content-between"><span>Sort By Name</span><ion-icon
+              name="caret-forward-outline"></ion-icon></a>
+          <div class="nested-dropdown-content">
+            <a href="{% url 'patient:filter' filter_by='sort-by-name-asc' %}"
+              class="d-flex justify-content-between"><span>Ascending</span><ion-icon name="arrow-up-outline"></ion-icon></a>
+            <a href="{% url 'patient:filter' filter_by='sort-by-name-desc' %}"
+              class="d-flex justify-content-between"><span>Descending</span><ion-icon name="arrow-down-outline"></ion-icon></a>
+          </div>
+        </div>
+        <div class="nested-dropdown">
+          <a href="#" class="d-flex justify-content-between"><span>Gender</span><ion-icon
+              name="caret-forward-outline"></ion-icon></a>
           <div class="nested-dropdown-content">
             <a href="{% url 'patient:filter' filter_by='male' %}">Male</a>
             <a href="{% url 'patient:filter' filter_by='female' %}">Female</a>
           </div>
         </div>
         <div class="nested-dropdown">
-          <a href="#" class="d-flex justify-content-between"><span>Cases</span><ion-icon name="caret-forward-outline"></ion-icon></a>
+          <a href="#" class="d-flex justify-content-between"><span>Cases</span><ion-icon
+              name="caret-forward-outline"></ion-icon></a>
           <div class="nested-dropdown-content">
             <a href="{% url 'patient:filter' filter_by='male' %}">Minor</a>
             <a href="{% url 'patient:filter' filter_by='female' %}">Normal</a>
@@ -44,6 +64,10 @@
       </div>
     </div>
     <h1 class="text-center">Patients</h1>
+    <div class="dropdown d-flex" > 
+      <a href="{% url 'patient:filter' filter_by='recent' %}" class="dropdown-btn mt-3 mb-3"><span>Recent</span></a>
+      <a href="{% url 'patient:filter' filter_by='oldest' %}" class="dropdown-btn mt-3 mb-3" style="margin-left: 5px;"><span>Oldest</span></a>
+    </div>
   </div>
 
 
