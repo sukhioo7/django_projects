@@ -1,6 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from . import models
 import os
+from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 
 # Create your views here.
@@ -106,3 +107,36 @@ def filter_patient(request,filter_by):
         'patients':patients
     }
     return render(request,'patient/patient_home.html',context=data)
+
+def signup(request):
+    if request.POST:
+        full_name = request.POST['full_name']
+        designation = request.POST['designation']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if all([full_name,designation,email,password,confirm_password]):
+            check_email = models.Employee.objects.filter(emp_email=email).exists()
+            if not(check_email):
+                if password==confirm_password:
+                    encripted_pass = make_password(password=password)
+                    models.Employee.objects.create(emp_name=full_name,
+                                                emp_designation=designation,
+                                                emp_email=email,
+                                                emp_password=encripted_pass)
+                else:
+                    error = {
+                            'password_exist':True
+                    }
+            else:
+                error = {
+                            'email_exist':True
+                }
+        else:
+            error = {
+                            'empty_values':True
+            }
+        return render(request,'patient/signup.html',context=error)
+
+    return render(request,'patient/signup.html')

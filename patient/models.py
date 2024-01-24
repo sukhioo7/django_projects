@@ -11,4 +11,11 @@ class Patient(models.Model):
     patient_gender = models.CharField(max_length=10)
     patient_image = models.ImageField(upload_to='patient_images/',null=True)
     patient_symptoms = models.CharField(max_length=2000)
+
+class Employee(models.Model):
+    emp_id = models.AutoField(primary_key=True)
+    emp_name = models.CharField(max_length=300)
+    emp_designation = models.CharField(max_length=10)
+    emp_email = models.EmailField(max_length=200)
+    emp_password = models.CharField(max_length=3000)
     
