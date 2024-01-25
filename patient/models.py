@@ -12,6 +12,9 @@ class Patient(models.Model):
     patient_image = models.ImageField(upload_to='patient_images/',null=True)
     patient_symptoms = models.CharField(max_length=2000)
 
+    def __str__(self):
+        return f'ID: {self.patient_id}, Name: {self.patient_name}'
+
 class Employee(models.Model):
     emp_id = models.AutoField(primary_key=True)
     emp_name = models.CharField(max_length=300)

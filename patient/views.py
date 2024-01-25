@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,HttpResponse
 from . import models
 import os
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
+from django.contrib.auth import login
 
 # Create your views here.
 def patient_home(request):
@@ -108,7 +109,7 @@ def filter_patient(request,filter_by):
     }
     return render(request,'patient/patient_home.html',context=data)
 
-def signup(request):
+def signup_emp(request):
     if request.POST:
         full_name = request.POST['full_name']
         designation = request.POST['designation']
@@ -140,3 +141,37 @@ def signup(request):
         return render(request,'patient/signup.html',context=error)
 
     return render(request,'patient/signup.html')
+
+def login_emp(request):
+    if request.POST:
+        email = request.POST['email']
+        password = request.POST['password']
+
+        if all([email,password]):
+            check_email = models.Employee.objects.filter(emp_email=email).exists()
+            if check_email:
+                employee = models.Employee.objects.get(emp_email=email)
+                pass_check = check_password(password,employee.emp_password)
+                if pass_check:
+                    request.session['emp_id'] = employee.emp_id
+                    request.session['emp_name'] = employee.emp_name
+                    return redirect('home_page')
+                else:
+                    error = {
+                        'employee_error':True
+                    }
+            else:
+                error = {
+                    'employee_error':True
+                }
+        else:
+            error = {
+                'empty_values':True
+            }
+    return render(request,'patient/login.html')
+
+
+def logout_emp(request):
+    request.session.pop('emp_id')
+    request.session.pop('emp_name')
+    return redirect('home_page')

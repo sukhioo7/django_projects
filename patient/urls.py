@@ -8,5 +8,8 @@ urlpatterns = [
     path('delete/<str:id>',views.delete_patient,name='delete_patient'),
     path('update/<int:id>/',views.update_patient,name='update_patient'),
     path('filter/<slug:filter_by>/',views.filter_patient,name='filter'),
-    path('signup/',views.signup,name='signup')
+    path('signup/',views.signup_emp,name='signup'),
+    path('login/',views.login_emp,name='login'),
+    path('logout/',views.logout_emp,name='logout')
+
 ]
