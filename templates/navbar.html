@@ -17,7 +17,7 @@
                     <a class="nav-link" aria-current="page" href="{% url 'home_page' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'patient:patient_home_page' %}">Patient</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'patient:patient_home_page' page=1 %}">Patient</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'static_pages' page_name='about' %}">About</a>
@@ -29,7 +29,7 @@
                     <a class="nav-link" aria-current="page" href="{% url 'static_pages' page_name='services' %}">Services</a>
                 </li>
             </ul>
-            <form method="POST" action="{% url 'patient:patient_home_page' %}" class="d-flex" role="search">
+            <form method="POST" action="{% url 'patient:patient_home_page' page=1 %}" class="d-flex" role="search">
                 {% csrf_token %}
                 <input class="form-control me-2" name="user_search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" name="search_btn" type="submit">Search</button>

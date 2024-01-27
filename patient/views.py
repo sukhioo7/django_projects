@@ -1,12 +1,12 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect
 from . import models
 import os
 from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
-from django.contrib.auth import login
+from django.core.paginator import Paginator
 
 # Create your views here.
-def patient_home(request):
+def patient_home(request,page):
     if 'search_btn' in request.POST:
         user_search = request.POST['user_search']
         patients = models.Patient.objects.filter(Q(patient_name__icontains=user_search) | Q(patient_city__icontains=user_search) | Q(patient_phone__icontains=user_search) | Q(patient_email__icontains=user_search) | Q(patient_symptoms__icontains=user_search)).all()
@@ -54,6 +54,8 @@ def patient_home(request):
         
 
     patients = models.Patient.objects.all()
+    paginator = Paginator(patients,5)
+    patients = paginator.page(number=page)
     data = {
         'patients':patients
     }

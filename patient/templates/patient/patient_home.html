@@ -71,7 +71,7 @@
   </div>
 
 
-  <main class="d-flex flex-wrap justify-content-center align-items-center">
+  <main class="d-flex flex-column flex-wrap justify-content-center align-items-center">
     {% for patient in patients %}
     <div class="patient-card d-flex justify-content-center align-items-center">
       <div>
@@ -103,6 +103,19 @@
       </div>
     </div>
     {% endfor %}
+    <div aria-label="Page navigation example">
+      <ul class="pagination">
+        {%if patients.has_previous %}
+          <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.previous_page_number %}">Previous</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        {%if patients.has_next %}
+          <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.next_page_number %}">Next</a></li>
+        {% endif %}
+      </ul>
+    </div>
   </main>
 
   <!-- Button trigger modal -->
