@@ -72,50 +72,75 @@
 
 
   <main class="d-flex flex-column flex-wrap justify-content-center align-items-center">
-    {% for patient in patients %}
-    <div class="patient-card d-flex justify-content-center align-items-center">
-      <div>
-        <img src="{{ patient.patient_image.url }}" alt="">
-        <p class="text-center">Patient ID : {{patient.patient_id}}</p>
-      </div>
-      <div class="patient-detail">
-        <h2><span>{{patient.patient_name}}</span>
-          <div><a class="btn btn-outline-success"
-              href="{% url 'patient:update_patient' id=patient.patient_id %}">Edit</a><button data-bs-toggle="modal"
-              data-bs-target="#exampleModal" onclick="delete_pa('{{patient.patient_id}}')"
-              class="btn btn-outline-danger">Delete</button></div>
-        </h2>
+    
+    {% if patients %}
+      {% for patient in patients %}
+      <div class="patient-card d-flex justify-content-center align-items-center">
         <div>
-          <p>
-            <span><b>Gender : </b>{{patient.patient_gender}}</span>
-            <span><b>Age : </b>{{patient.patient_age}}</span>
-            <span><b>City : </b>{{patient.patient_city}}</span>
-          </p>
-          <p>
-            <span><b>Phone : </b>+91 {{patient.patient_phone}}</span>
-            <span><b>Email : </b>{{patient.patient_email}}</span>
-          </p>
-          <p>
-          <h4>Symptoms</h4>
-          <p>{{patient.patient_symptoms}}</p>
-          </p>
+          <img src="{{ patient.patient_image.url }}" alt="">
+          <p class="text-center">Patient ID : {{patient.patient_id}}</p>
+        </div>
+        <div class="patient-detail">
+          <h2><span>{{patient.patient_name}}</span>
+            <div><a class="btn btn-outline-success"
+                href="{% url 'patient:update_patient' id=patient.patient_id %}">Edit</a><button data-bs-toggle="modal"
+                data-bs-target="#exampleModal" onclick="delete_pa('{{patient.patient_id}}')"
+                class="btn btn-outline-danger">Delete</button></div>
+          </h2>
+          <div>
+            <p>
+              <span><b>Gender : </b>{{patient.patient_gender}}</span>
+              <span><b>Age : </b>{{patient.patient_age}}</span>
+              <span><b>City : </b>{{patient.patient_city}}</span>
+            </p>
+            <p>
+              <span><b>Phone : </b>+91 {{patient.patient_phone}}</span>
+              <span><b>Email : </b>{{patient.patient_email}}</span>
+            </p>
+            <p>
+            <h4>Symptoms</h4>
+            <p>{{patient.patient_symptoms}}</p>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    {% endfor %}
-    <div aria-label="Page navigation example">
-      <ul class="pagination">
-        {%if patients.has_previous %}
-          <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.previous_page_number %}">Previous</a></li>
-        {% endif %}
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        {%if patients.has_next %}
-          <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.next_page_number %}">Next</a></li>
-        {% endif %}
-      </ul>
-    </div>
+      {% endfor %}
+      <div class="pagination-div" aria-label="Page navigation example">
+        <ul class="pagination">
+          {%if patients.has_previous %}
+            {%if search_url %}
+              <li class="page-item"><a class="page-link" href="?user_search={{user_search}}&page={{patients.previous_page_number}}">Previous</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.previous_page_number %}">Previous</a></li>
+            {% endif %}
+          {% endif %}
+          {% for page_num in patients.paginator.page_range %}
+            {% if page_num == patients.number %}
+              {%if search_url %}
+                <li class="page-item"><a class="page-link active-page" href="?user_search={{user_search}}&page={{page_num}}">{{page_num}}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link active-page" href="{% url 'patient:patient_home_page' page=page_num %}">{{page_num}}</a></li>
+              {% endif %}
+            {% else %}
+              {%if search_url %}
+                <li class="page-item"><a class="page-link" href="?user_search={{user_search}}&page={{page_num}}">{{page_num}}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=page_num %}">{{page_num}}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {%if patients.has_next %}
+            {%if search_url %}
+              <li class="page-item"><a class="page-link" href="?user_search={{user_search}}&page={{patients.next_page_number}}">Next</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="{% url 'patient:patient_home_page' page=patients.next_page_number %}">Next</a></li>
+            {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+    {% else %}
+      <h2 class="text-center text-danger m-5">No Data Found</h2>
+    {% endif %}
   </main>
 
   <!-- Button trigger modal -->

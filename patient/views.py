@@ -3,17 +3,10 @@ from . import models
 import os
 from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def patient_home(request,page):
-    if 'search_btn' in request.POST:
-        user_search = request.POST['user_search']
-        patients = models.Patient.objects.filter(Q(patient_name__icontains=user_search) | Q(patient_city__icontains=user_search) | Q(patient_phone__icontains=user_search) | Q(patient_email__icontains=user_search) | Q(patient_symptoms__icontains=user_search)).all()
-        data = {
-            'patients':patients
-        }
-        return render(request,'patient/patient_home.html',context=data)
     if 'register_patient' in request.POST:
         name = request.POST['full_name']
         age = request.POST['age']
@@ -143,6 +136,30 @@ def signup_emp(request):
         return render(request,'patient/signup.html',context=error)
 
     return render(request,'patient/signup.html')
+
+def search(request):
+    if request.GET:
+        user_search = request.GET.get('user_search')
+        patients = models.Patient.objects.filter(Q(patient_name__icontains=user_search) | Q(patient_city__icontains=user_search) | Q(patient_phone__icontains=user_search) | Q(patient_email__icontains=user_search) | Q(patient_symptoms__icontains=user_search)).all()
+        if len(patients)!=0:
+            page = request.GET.get('page')
+            paginator = Paginator(patients,5)
+            try:
+                patients = paginator.page(page)
+            except PageNotAnInteger:
+                patients = paginator.page(number=1)
+            except EmptyPage:
+                patients = paginator.page(number=paginator.num_pages)
+            data = {
+                'patients':patients,
+                'search_url':True,
+                'user_search':user_search
+            }
+        else:
+            data = {
+                'patients':False
+            }
+        return render(request,'patient/patient_home.html',context=data)
 
 def login_emp(request):
     if request.POST:

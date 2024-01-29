@@ -128,12 +128,31 @@ h1{
   }
   
   .dropdown-content a:hover span,
-  .nested-dropdown-content a:hover span {
+  .nested-dropdown-content a:hover span ,.pagination-div>ul>li>a:hover{
     color: rgb(118, 214, 127);
   }
-.dropdown-btn:hover,.dropdown-content:hover,.nested-dropdown-content:hover{
+.dropdown-btn:hover,.dropdown-content:hover,
+.nested-dropdown-content:hover{
   border: 2px solid rgba(118, 214, 127, 0.831);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .dropdown>a{
   text-decoration: none;
+}
+
+.pagination-div>ul>li>a{
+  margin: 0 10px;
+  border-radius: 5px;
+  color: #70747c;
+  outline: none;
+  border: 2px solid rgba(118, 214, 127, 0.359);
+}
+.pagination-div>ul>li>a:hover{
+  border: 2px solid rgba(118, 214, 127, 0.831);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #4d4d4d;
+}
+.active-page{
+  background-color: rgba(118, 214, 127, 0.831);
+  color: rgb(255, 255, 255);
 }
