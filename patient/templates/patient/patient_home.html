@@ -82,10 +82,12 @@
         </div>
         <div class="patient-detail">
           <h2><span>{{patient.patient_name}}</span>
+            {% if request.session.emp_designation == 'doctor' %}
             <div><a class="btn btn-outline-success"
                 href="{% url 'patient:update_patient' id=patient.patient_id %}">Edit</a><button data-bs-toggle="modal"
                 data-bs-target="#exampleModal" onclick="delete_pa('{{patient.patient_id}}')"
                 class="btn btn-outline-danger">Delete</button></div>
+              {% endif %}
           </h2>
           <div>
             <p>

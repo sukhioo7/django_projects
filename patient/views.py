@@ -7,6 +7,8 @@ from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def patient_home(request,page):
+    if not(request.session.get('emp_id')):
+        return redirect('patient:login')
     if 'register_patient' in request.POST:
         name = request.POST['full_name']
         age = request.POST['age']
@@ -55,12 +57,16 @@ def patient_home(request,page):
     return render(request,'patient/patient_home.html',context=data)
     
 def delete_patient(request,id):
+    if not(request.session.get('emp_id')):
+        return redirect('patient:login')
     patient = models.Patient.objects.get(patient_id=int(id))
     os.remove(patient.patient_image.path)
     patient.delete()
     return redirect('patient:patient_home_page')
 
 def update_patient(request,id):
+    if not(request.session.get('emp_id')):
+        return redirect('patient:login')
     patient = models.Patient.objects.get(patient_id=id)
     if request.POST:
         name = request.POST['full_name']
@@ -121,17 +127,20 @@ def signup_emp(request):
                                                 emp_designation=designation,
                                                 emp_email=email,
                                                 emp_password=encripted_pass)
+                    error = {
+                        'success':True
+                    }
                 else:
                     error = {
-                            'password_exist':True
+                        'password_exist':True
                     }
             else:
                 error = {
-                            'email_exist':True
+                    'email_exist':True
                 }
         else:
             error = {
-                            'empty_values':True
+                'empty_values':True
             }
         return render(request,'patient/signup.html',context=error)
 
@@ -174,6 +183,7 @@ def login_emp(request):
                 if pass_check:
                     request.session['emp_id'] = employee.emp_id
                     request.session['emp_name'] = employee.emp_name
+                    request.session['emp_designation'] = employee.emp_designation
                     return redirect('home_page')
                 else:
                     error = {
