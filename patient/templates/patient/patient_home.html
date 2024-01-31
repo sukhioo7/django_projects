@@ -63,6 +63,9 @@
         </div>
       </div>
     </div>
+    <div class="dropdown d-flex" > 
+      <a href="{% url 'patient:save_file' val='export-as-csv' %}" class="dropdown-btn mt-3 mb-3"><span>Export to CSV</span></a>
+    </div>
     <h1 class="text-center">Patients</h1>
     <div class="dropdown d-flex" > 
       <a href="{% url 'patient:filter' filter_by='recent' %}" class="dropdown-btn mt-3 mb-3"><span>Recent</span></a>
@@ -87,7 +90,7 @@
                 href="{% url 'patient:update_patient' id=patient.patient_id %}">Edit</a><button data-bs-toggle="modal"
                 data-bs-target="#exampleModal" onclick="delete_pa('{{patient.patient_id}}')"
                 class="btn btn-outline-danger">Delete</button></div>
-              {% endif %}
+            {% endif %}
           </h2>
           <div>
             <p>

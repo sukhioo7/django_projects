@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from . import models
 import os
+from hospital.settings import BASE_DIR
 from django.contrib.auth.hashers import make_password,check_password
 from django.db.models import Q
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
@@ -62,7 +63,7 @@ def delete_patient(request,id):
     patient = models.Patient.objects.get(patient_id=int(id))
     os.remove(patient.patient_image.path)
     patient.delete()
-    return redirect('patient:patient_home_page')
+    return redirect('patient:patient_home_page',page=1)
 
 def update_patient(request,id):
     if not(request.session.get('emp_id')):
@@ -204,3 +205,15 @@ def logout_emp(request):
     request.session.pop('emp_id')
     request.session.pop('emp_name')
     return redirect('home_page')
+
+def export_to_csv(request,val):
+    if val=='export-as-csv':
+        file_path = os.path.join(BASE_DIR,'media/csv files/Patients.csv')
+        with open(file_path,'w') as my_file:
+            my_file.write('Patient ID,Name,Age,Gender,City,Phone,Email,Symptoms\n')
+            patients = models.Patient.objects.all()
+            for patient in patients:
+                my_file.write(f"{patient.patient_id},{patient.patient_name},{patient.patient_age},{patient.patient_gender},{patient.patient_city},{patient.patient_phone},{patient.patient_email},{patient.patient_symptoms.replace(',',' | ')}\n")
+        return redirect('patient:patient_home_page',page=1)
+                
+            
